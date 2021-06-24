@@ -42,6 +42,7 @@ public class MainAplikasiKasir {
         app.generateDaftarMenu();
         
         System.out.println("========== TRANSAKSI ==========");
+        do {
             System.out.print("No Transaksi : ");
             no_transaksi = input.next();
             System.out.print("Pemesan : ");
@@ -64,6 +65,7 @@ public class MainAplikasiKasir {
 
                 Pesanan pesanan = new Pesanan(menu_yang_dipilih, jumlah_pesanan);
                 trans.tambahPesanan(pesanan);
+
                 String keterangan = new String();
                 if (menu_yang_dipilih.getKategori().equals("Ramen")) {
                     int jumlah_ramen = jumlah_pesanan;
@@ -97,12 +99,13 @@ public class MainAplikasiKasir {
                 if (!keterangan.equals("-")) {
                     pesanan.setKeterangan(keterangan);
                 }
-                
+
                 System.out.print("Tambah Pesanan lagi? [Y/N] : ");
                 pesan_lagi = input.next();
-            }while (pesan_lagi.equalsIgnoreCase("Y"));
+            }
+            while (pesan_lagi.equalsIgnoreCase("Y"));
             trans.cetakStruk();
-            
+
             double total_pesanan = trans.hitungTotalPesanan();
             System.out.println("==============================");
             System.out.println("Total : \t\t " + total_pesanan);
@@ -117,7 +120,6 @@ public class MainAplikasiKasir {
                 System.out.println("Biaya Service 5% : \t\t" + biaya_service);
             }
             System.out.println("Total : \t\t " + trans.hitungTotalBayar(ppn, biaya_service));
-            
             double kembalian = 0;
             do {
                 double uang_bayar = app.cekInputNumber("Uang Bayar : \t\t");
@@ -129,7 +131,9 @@ public class MainAplikasiKasir {
                     break;
                 }
             } while (kembalian < 0);
-            
+            System.out.print("Lakukan Transaksi Lagi? [Y/N] : ");
+            transaksi_lagi = input.next();
+        } while (transaksi_lagi.equalsIgnoreCase("Y"));
         System.out.println("========== TERIMA KASIH ==========");
     }
     
